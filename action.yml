@@ -1,11 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'get-vercel-preview-url'
+description: 'Fetch a Vercel Preview URL'
+author: 'Luke Steyn'
 inputs:
-  milliseconds: # change this
+  project-id:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The vercel project ID'
+  team-id: # change this
+    required: false
+    description: 'The vercel team ID'
+outputs:
+  preview_url:
+    description: "The URL for the vercel preview deployment"
 runs:
   using: 'node16'
   main: 'dist/index.js'
