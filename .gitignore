@@ -1,5 +1,5 @@
 # Dependency directory
-node_modules
+# node_modules // Remove this because necessary for github action to run
 
 # Rest pulled from https://github.com/github/gitignore/blob/master/Node.gitignore
 # Logs
