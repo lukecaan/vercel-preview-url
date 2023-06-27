@@ -8,8 +8,8 @@ const MAX_RETRY_COUNT = 3 // Try three times to fetch the vercel preview
 async function run(): Promise<void> {
   try {
     // Get inputs
-    const projectId = core.getInput('project-id')
-    const teamId = core.getInput('team-id')
+    const projectId = core.getInput('project_id')
+    const teamId = core.getInput('team_id')
     core.info(`Project ID : ${projectId}`)
     core.info(`Team ID : ${teamId}`)
 
