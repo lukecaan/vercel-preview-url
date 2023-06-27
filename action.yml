@@ -13,4 +13,4 @@ outputs:
     description: 'The URL for the vercel preview deployment'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'lib/index.js'
