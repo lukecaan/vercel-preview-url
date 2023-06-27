@@ -2,6 +2,9 @@ name: 'get-vercel-preview-url'
 description: 'Fetch a Vercel Preview URL'
 author: 'Luke Steyn'
 inputs:
+  branch_name:
+    required: true
+    description: 'The current branch name'
   project_id:
     required: true
     description: 'The vercel project ID'
