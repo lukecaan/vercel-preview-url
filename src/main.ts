@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import {context} from '@actions/github'
 import {wait} from './wait'
+import fetch from 'node-fetch'
 
 const WAIT_LOOP_TIME = 1000 * 10 // Wait 10secs if no deploymets on each try
 const MAX_RETRY_COUNT = 3 // Try three times to fetch the vercel preview
@@ -45,9 +46,11 @@ async function run(): Promise<void> {
       const data = await res.json()
 
       // Look for a deployment with matching branch name
-      const deployments = data.deployments.filter((deployment: any) => {
-        return deployment.meta.githubCommitRef === branchName
-      })
+      const deployments = (data as any).deployments.filter(
+        (deployment: any) => {
+          return deployment.meta.githubCommitRef === branchName
+        }
+      )
 
       // If one doesn't exist, wait and loop
       if (deployments.length === 0) {

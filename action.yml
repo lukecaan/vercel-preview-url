@@ -12,5 +12,5 @@ outputs:
   preview_url:
     description: 'The URL for the vercel preview deployment'
 runs:
-  using: 'node18'
+  using: 'node16'
   main: 'lib/main.js'
