@@ -1,10 +1,28 @@
 import * as core from '@actions/core'
-import {context} from '@actions/github'
 import {wait} from './wait'
 import fetch from 'node-fetch'
 
 const WAIT_LOOP_TIME = 1000 * 10 // Wait 10secs if no deploymets on each try
 const MAX_RETRY_COUNT = 3 // Try three times to fetch the vercel preview
+
+const getBranchName = (): string => {
+  const isPullRequest = !!process.env.GITHUB_HEAD_REF //GITHUB_HEAD_REF is only set for pull request events https://docs.github.com/en/actions/reference/environment-variables
+
+  let branchName
+  if (isPullRequest && process.env.GITHUB_HEAD_REF) {
+    branchName = process.env.GITHUB_HEAD_REF
+  } else {
+    if (!process.env.GITHUB_REF) {
+      throw new Error('GITHUB_EVENT_PATH env var not set')
+    }
+    branchName = process.env.GITHUB_REF.split('/')
+      .slice(2)
+      .join('/')
+      .replace(/\//g, '-')
+  }
+
+  return branchName
+}
 
 async function run(): Promise<void> {
   try {
@@ -15,7 +33,7 @@ async function run(): Promise<void> {
     core.info(`Team ID : ${teamId}`)
 
     // Get Branch Name
-    const branchName = (context as unknown as {head_ref: string}).head_ref
+    const branchName = getBranchName()
     core.info(`Branch Name : ${branchName}`)
 
     // Get Vercel Token
